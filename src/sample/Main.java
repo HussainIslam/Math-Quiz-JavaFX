@@ -7,8 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
-import java.util.Random;
+import javafx.stage.Window;
 
 public class Main extends Application {
 
@@ -54,7 +53,11 @@ public class Main extends Application {
         GridPane.setColumnSpan(labelCorrect, 2);
         GridPane.setColumnSpan(labelWrong, 2);
 
-
+        SubmitEventHandler pressEnter = new SubmitEventHandler(
+                textAddition.getText(), textSubtraction.getText(), textMultiplication.getText(), textDivision.getText(),
+                randomNumber1, randomNumber2, labelCorrect, labelWrong
+        );
+        quizPane.setOnKeyPressed(pressEnter);
 
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(mainPane, 350, 350));
