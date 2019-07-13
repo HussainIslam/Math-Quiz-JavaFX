@@ -8,16 +8,22 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.util.Random;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         BorderPane mainPane = new BorderPane();
 
+        int randomNumber1 = this.generateRandomNumber();
+        int randomNumber2 = this.generateRandomNumber();
+
         GridPane quizPane = new GridPane();
         mainPane.setCenter(quizPane);
 
-        Label heading = new Label("Two randomly generated numbers are: ");
+        Label heading = new Label("Two randomly generated numbers are: " +
+                randomNumber1 + " and " +randomNumber2);
         quizPane.add(heading, 0, 0);
         GridPane.setColumnSpan(heading, 2);
 
@@ -49,13 +55,17 @@ public class Main extends Application {
         GridPane.setColumnSpan(labelWrong, 2);
 
 
+
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(mainPane, 350, 350));
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public int generateRandomNumber (){
+        return (int) Math.round(Math.random() * 100);
     }
 }
