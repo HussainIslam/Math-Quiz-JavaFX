@@ -13,8 +13,9 @@ public class SubmitEventHandler implements EventHandler<KeyEvent> {
     private final String division;
     private final int number1;
     private final int number2;
-    private final Label correct;
-    private final Label wrong;
+    private final Label correctLabel;
+    private final Label wrongLabel;
+
 
     SubmitEventHandler(
             String addition, String subtraction, String multiplication, String division, int num1, int num2,
@@ -25,8 +26,8 @@ public class SubmitEventHandler implements EventHandler<KeyEvent> {
         this.division = division;
         this.number1 = num1;
         this.number2 = num2;
-        this.correct = correct;
-        this.wrong = wrong;
+        this.correctLabel = correct;
+        this.wrongLabel = wrong;
     }
 
     @Override
@@ -43,6 +44,36 @@ public class SubmitEventHandler implements EventHandler<KeyEvent> {
                 int inputSubtraction = Integer.parseInt(subtraction);
                 int inputMultiplication = Integer.parseInt(multiplication);
                 double inputDivision = Double.parseDouble(division);
+
+                int correctCounter = 0;
+                int wrongCounter = 0;
+
+                if (inputAddtion == (number1 + number2)) {
+                    correctCounter++;
+                } else {
+                    wrongCounter++;
+                }
+
+                if(inputSubtraction == (number1 - number2)){
+                    correctCounter++;
+                } else {
+                    wrongCounter++;
+                }
+
+                if(inputMultiplication == (number1 * number2)){
+                    correctCounter++;
+                } else{
+                    wrongCounter++;
+                }
+
+                if(inputDivision == (number1 / number2)){
+                    correctCounter++;
+                } else {
+                    wrongCounter++;
+                }
+
+
+
             }
             catch (Exception ex){
                 System.out.println(ex.toString());
