@@ -24,10 +24,25 @@ public class Main extends Application {
         Label labelAddition = new Label("What is the addition of ");
         TextField textAddition = new TextField();
         quizPane.add(labelAddition, 0, 1);
+        quizPane.add(textAddition, 1, 1);
 
+        Label labelSubtraction = new Label("What is subtraction of ");
+        TextField textSubtraction = new TextField();
+        quizPane.add(labelSubtraction, 0, 2);
+        quizPane.add(textSubtraction, 1, 2);
+
+        Label labelMultiplication = new Label("What is multiplication of ");
+        TextField textMultiplication = new TextField();
+        quizPane.add(labelMultiplication, 0, 3);
+        quizPane.add(textMultiplication, 1, 3);
+
+        Label labelDivision = new Label("What is division of ");
+        TextField textDivision = new TextField();
+        quizPane.add(labelDivision, 0, 4);
+        quizPane.add(textDivision, 1, 4);
 
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(mainPane, 300, 275));
+        primaryStage.setScene(new Scene(mainPane, 350, 350));
         primaryStage.show();
     }
 
