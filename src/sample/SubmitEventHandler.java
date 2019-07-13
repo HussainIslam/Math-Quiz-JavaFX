@@ -33,7 +33,16 @@ public class SubmitEventHandler implements EventHandler<KeyEvent> {
     public void handle(KeyEvent event){
         if(event.getCode().equals(KeyCode.ENTER)){
             try{
-
+                if( addition.equals("") ||
+                    subtraction.equals("") ||
+                    multiplication.equals("") ||
+                    division.equals("")){
+                    throw new Exception();
+                }
+                int inputAddtion = Integer.parseInt(addition);
+                int inputSubtraction = Integer.parseInt(subtraction);
+                int inputMultiplication = Integer.parseInt(multiplication);
+                double inputDivision = Double.parseDouble(division);
             }
             catch (Exception ex){
                 System.out.println(ex.toString());
