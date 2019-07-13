@@ -41,6 +41,14 @@ public class Main extends Application {
         quizPane.add(labelDivision, 0, 4);
         quizPane.add(textDivision, 1, 4);
 
+        Label labelCorrect = new Label("Number of correct answers: ");
+        Label labelWrong = new Label("Number of wrong answers: ");
+        quizPane.add(labelCorrect, 0, 5);
+        quizPane.add(labelWrong, 0, 6);
+        GridPane.setColumnSpan(labelCorrect, 2);
+        GridPane.setColumnSpan(labelWrong, 2);
+
+
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(mainPane, 350, 350));
         primaryStage.show();
