@@ -76,35 +76,22 @@ public class Main extends Application {
                     double inputDivision = Double.parseDouble(textDivision.getText());
 
                     int correctCounter = 0;
-                    int wrongCounter = 0;
-
                     if (inputAddition == (randomNumber1 + randomNumber2)) {
                         correctCounter++;
-                    } else {
-                        wrongCounter++;
                     }
-
                     if(inputSubtraction == (randomNumber1 - randomNumber2)){
                         correctCounter++;
-                    } else {
-                        wrongCounter++;
                     }
-
                     if(inputMultiplication == (randomNumber1 * randomNumber2)){
                         correctCounter++;
-                    } else{
-                        wrongCounter++;
                     }
-
                     Formatter div = new Formatter("0.00");
                     if(div.format(String.valueOf(inputDivision)) == div.format(String.valueOf(randomNumber1 / randomNumber2))){
                         correctCounter++;
-                    } else {
-                        wrongCounter++;
                     }
 
                     labelCorrect.setText("Number of Correct Answers: " +correctCounter);
-                    labelWrong.setText("Number of Wrong Answers: " +wrongCounter);
+                    labelWrong.setText("Number of Wrong Answers: " +(4 - correctCounter));
                 }
                 catch (Exception ex){
                     ex.printStackTrace();
