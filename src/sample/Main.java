@@ -126,16 +126,26 @@ public class Main extends Application {
                                     textTry.clear();
                                     tryAgain.getChildren().clear();
                                     textAddition.requestFocus();
-                                }else{
+                                }else if(retryOption.toLowerCase().equals("n")){
                                     primaryStage.hide();
+                                } else{
+                                    throw new InputMismatchException();
                                 }
-
-                            } catch (Exception ex) {
+                            }
+                            catch (EmptyInputException eie){
                                 this.showAlert(Alert.AlertType.ERROR,
                                         "Error",
-                                        "Character Expected",
-                                        "Please enter (Y/y) to retry or (N/n) to quit.");
+                                        "Input Expected",
+                                        "Please enter (Y/y) to retry or (N/n) to quit."
+                                );
                             }
+                            catch (InputMismatchException ime) {
+                                this.showAlert(Alert.AlertType.ERROR,
+                                        "Error",
+                                        "Unexpected Input",
+                                        "Expected input is either (Y/y) to retry or (N/n) to quit.");
+                            }
+
                         }
                     });
 
@@ -144,11 +154,19 @@ public class Main extends Application {
                     this.showAlert(Alert.AlertType.ERROR,
                                     "Error",
                                     "Empty Input Field(s)",
-                                    "One or more of the input field(s) still empty"
+                                    "One or more of the input field(s) still empty. Please fill up the input fields and try again."
                     );
                 }
+                catch (NumberFormatException nfe){
+                    this.showAlert(Alert.AlertType.ERROR,
+                                    "Error",
+                                    "Numbers Expected",
+                                    "Input fields are expecting numbers. Please enter numbers to avoid errors.");
+
+                }
                 catch (Exception ex){
-                    this.showAlert(Alert.AlertType.ERROR, "Error", "There was an error", ex.toString());
+                    //this.showAlert(Alert.AlertType.ERROR, "Error", "There was an error", ex.getStackTrace().toString());
+                    ex.printStackTrace();
                 }
             }
         });
