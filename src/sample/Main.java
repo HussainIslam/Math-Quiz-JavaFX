@@ -1,14 +1,17 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+
+import java.util.Formatter;
 
 public class Main extends Application {
 
@@ -21,6 +24,9 @@ public class Main extends Application {
 
         GridPane quizPane = new GridPane();
         mainPane.setCenter(quizPane);
+        quizPane.setAlignment(Pos.CENTER);
+        quizPane.setHgap(10);
+        quizPane.setVgap(10);
 
         Label heading = new Label("Two randomly generated numbers are: " +
                 randomNumber1 + " and " +randomNumber2);
@@ -86,12 +92,12 @@ public class Main extends Application {
 
                     if(inputMultiplication == (randomNumber1 * randomNumber2)){
                         correctCounter++;
-                        correctCounter++;
                     } else{
                         wrongCounter++;
                     }
 
-                    if(Math.round(inputDivision) == Math.round(randomNumber1 / randomNumber2)){
+                    Formatter div = new Formatter("0.00");
+                    if(div.format(String.valueOf(inputDivision)) == div.format(String.valueOf(randomNumber1 / randomNumber2))){
                         correctCounter++;
                     } else {
                         wrongCounter++;
@@ -107,7 +113,7 @@ public class Main extends Application {
         });
 
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(mainPane, 350, 350));
+        primaryStage.setScene(new Scene(mainPane, 350, 300));
         primaryStage.show();
     }
 
@@ -118,4 +124,12 @@ public class Main extends Application {
     public int generateRandomNumber (){
         return (int) Math.round(Math.random() * 5) + 1;
     }
+
+    public void showAlert(Alert.AlertType type, String title, String header, String message){
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+    }
+
 }
