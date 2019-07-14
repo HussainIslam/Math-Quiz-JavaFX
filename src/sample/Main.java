@@ -175,14 +175,18 @@ public class Main extends Application {
 
                 }
                 catch (Exception ex){
-                    //this.showAlert(Alert.AlertType.ERROR, "Error", "There was an error", ex.getStackTrace().toString());
-                    ex.printStackTrace();
+                    this.showAlert(Alert.AlertType.ERROR,
+                            "Error",
+                            "Error in Application",
+                            "There was an unexpected error in the application"
+                    );
                 }
             }
         });
 
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Quiz Application");
         primaryStage.setScene(new Scene(mainPane, 350, 300));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
