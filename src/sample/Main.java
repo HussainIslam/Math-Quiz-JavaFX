@@ -28,7 +28,7 @@ public class Main extends Application {
 
         GridPane quizPane = new GridPane();
         mainPane.setCenter(quizPane);
-        quizPane.setAlignment(Pos.CENTER);
+        quizPane.setAlignment(Pos.TOP_CENTER);
         quizPane.setHgap(10);
         quizPane.setVgap(10);
 
@@ -124,13 +124,17 @@ public class Main extends Application {
                                     textMultiplication.clear();
                                     textDivision.clear();
                                     textTry.clear();
+                                    tryAgain.getChildren().clear();
                                     textAddition.requestFocus();
                                 }else{
                                     primaryStage.hide();
                                 }
 
                             } catch (Exception ex) {
-                                ex.printStackTrace();
+                                this.showAlert(Alert.AlertType.ERROR,
+                                        "Error",
+                                        "Character Expected",
+                                        "Please enter (Y/y) to retry or (N/n) to quit.");
                             }
                         }
                     });
@@ -147,19 +151,24 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public void showAlert(Alert.AlertType type, String title, String header, String message){
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     public int generateRandomNumber (){
         return (int) Math.round(Math.random() * 5) + 1;
     }
 
-    public void showAlert(Alert.AlertType type, String title, String header, String message){
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(message);
+    public static void main(String[] args) {
+        launch(args);
     }
+
+
+
+
 
 }
