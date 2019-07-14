@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.util.Formatter;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main extends Application {
 
@@ -22,8 +23,8 @@ public class Main extends Application {
         BorderPane mainPane = new BorderPane();
         mainPane.setPadding(new Insets(10, 10, 10, 10));
 
-        int randomNumber1 = this.generateRandomNumber();
-        int randomNumber2 = this.generateRandomNumber();
+        AtomicInteger randomNumber1 = new AtomicInteger(this.generateRandomNumber());
+        AtomicInteger randomNumber2 = new AtomicInteger(this.generateRandomNumber());
 
         GridPane quizPane = new GridPane();
         mainPane.setCenter(quizPane);
@@ -75,7 +76,7 @@ public class Main extends Application {
         quizPane.setOnKeyPressed(event -> {
             if(event.getCode().equals(KeyCode.ENTER)){
                 try{
-                    if( textAddition.getText().equals("") ||
+                    if(textAddition.getText().equals("") ||
                             textSubtraction.getText().equals("") ||
                             textMultiplication.getText().equals("") ||
                             textDivision.getText().equals("")){
@@ -87,17 +88,17 @@ public class Main extends Application {
                     double inputDivision = Double.parseDouble(textDivision.getText());
 
                     int correctCounter = 0;
-                    if (inputAddition == (randomNumber1 + randomNumber2)) {
+                    if (inputAddition == (randomNumber1.get() + randomNumber2.get())) {
                         correctCounter++;
                     }
-                    if(inputSubtraction == (randomNumber1 - randomNumber2)){
+                    if(inputSubtraction == (randomNumber1.get() - randomNumber2.get())){
                         correctCounter++;
                     }
-                    if(inputMultiplication == (randomNumber1 * randomNumber2)){
+                    if(inputMultiplication == (randomNumber1.get() * randomNumber2.get())){
                         correctCounter++;
                     }
                     Formatter div = new Formatter("0.00");
-                    if(div.format(String.valueOf(inputDivision)) == div.format(String.valueOf(randomNumber1 / randomNumber2))){
+                    if(div.format(String.valueOf(inputDivision)) == div.format(String.valueOf(randomNumber1.get() / randomNumber2.get()))){
                         correctCounter++;
                     }
                     labelCorrect.setText("Number of Correct Answers: " +correctCounter);
@@ -106,9 +107,34 @@ public class Main extends Application {
                     labelTry.setText("Would you like to try another quiz: ");
                     TextField textTry = new TextField();
                     textTry.setPrefWidth(30);
-
                     tryAgain.getChildren().clear();
                     tryAgain.getChildren().addAll(labelTry, textTry);
+                    textTry.setOnKeyPressed(e -> {
+                        if (e.getCode().equals(KeyCode.ENTER)) {
+                            try {
+                                String retryOption = textTry.getText();
+                                if(retryOption.length() > 1){
+                                    throw new Exception();
+                                }
+                                if(retryOption.toLowerCase().equals("y")){
+                                    randomNumber1.set(this.generateRandomNumber());
+                                    randomNumber2.set(this.generateRandomNumber());
+                                    textAddition.clear();
+                                    textSubtraction.clear();
+                                    textMultiplication.clear();
+                                    textDivision.clear();
+                                    textTry.clear();
+                                    textAddition.requestFocus();
+                                }else{
+                                    primaryStage.hide();
+                                }
+
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                    });
+
                 }
                 catch (Exception ex){
                     this.showAlert(Alert.AlertType.ERROR, "Error", "There was an error", ex.toString());
