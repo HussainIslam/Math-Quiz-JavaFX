@@ -80,7 +80,7 @@ public class Main extends Application {
                             textSubtraction.getText().equals("") ||
                             textMultiplication.getText().equals("") ||
                             textDivision.getText().equals("")){
-                        throw new Exception();
+                        throw new EmptyInputException();
                     }
                     int inputAddition = Integer.parseInt(textAddition.getText());
                     int inputSubtraction = Integer.parseInt(textSubtraction.getText());
@@ -140,6 +140,13 @@ public class Main extends Application {
                     });
 
                 }
+                catch (EmptyInputException eie){
+                    this.showAlert(Alert.AlertType.ERROR,
+                                    "Error",
+                                    "Empty Input Field(s)",
+                                    "One or more of the input field(s) still empty"
+                    );
+                }
                 catch (Exception ex){
                     this.showAlert(Alert.AlertType.ERROR, "Error", "There was an error", ex.toString());
                 }
@@ -166,9 +173,4 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-
-
-
-
 }
