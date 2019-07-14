@@ -113,8 +113,11 @@ public class Main extends Application {
                         if (e.getCode().equals(KeyCode.ENTER)) {
                             try {
                                 String retryOption = textTry.getText();
+                                if(retryOption.equals("")){
+                                    throw new EmptyInputException();
+                                }
                                 if(retryOption.length() > 1){
-                                    throw new Exception();
+                                    throw new MoreCharacterException();
                                 }
                                 if(retryOption.toLowerCase().equals("y")){
                                     randomNumber1.set(this.generateRandomNumber());
@@ -144,6 +147,13 @@ public class Main extends Application {
                                         "Error",
                                         "Unexpected Input",
                                         "Expected input is either (Y/y) to retry or (N/n) to quit.");
+                            }
+                            catch (MoreCharacterException mce){
+                                this.showAlert(Alert.AlertType.ERROR,
+                                        "Error",
+                                        "More Characters",
+                                        "Input field has received more characters than expected. " +
+                                                "Please enter only one character (Y/y) or (N/n)");
                             }
 
                         }
