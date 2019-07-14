@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -53,11 +54,57 @@ public class Main extends Application {
         GridPane.setColumnSpan(labelCorrect, 2);
         GridPane.setColumnSpan(labelWrong, 2);
 
-        SubmitEventHandler pressEnter = new SubmitEventHandler(
-                textAddition.getText(), textSubtraction.getText(), textMultiplication.getText(), textDivision.getText(),
-                randomNumber1, randomNumber2, labelCorrect, labelWrong
-        );
-        quizPane.setOnKeyPressed(pressEnter);
+
+        quizPane.setOnKeyPressed(event -> {
+            if(event.getCode().equals(KeyCode.ENTER)){
+                try{
+                    if( textAddition.getText().equals("") ||
+                            textSubtraction.getText().equals("") ||
+                            textMultiplication.getText().equals("") ||
+                            textDivision.getText().equals("")){
+                        throw new Exception();
+                    }
+                    int inputAddition = Integer.parseInt(textAddition.getText());
+                    int inputSubtraction = Integer.parseInt(textSubtraction.getText());
+                    int inputMultiplication = Integer.parseInt(textMultiplication.getText());
+                    double inputDivision = Double.parseDouble(textDivision.getText());
+
+                    int correctCounter = 0;
+                    int wrongCounter = 0;
+
+                    if (inputAddition == (randomNumber1 + randomNumber2)) {
+                        correctCounter++;
+                    } else {
+                        wrongCounter++;
+                    }
+
+                    if(inputSubtraction == (randomNumber1 - randomNumber2)){
+                        correctCounter++;
+                    } else {
+                        wrongCounter++;
+                    }
+
+                    if(inputMultiplication == (randomNumber1 * randomNumber2)){
+                        correctCounter++;
+                        correctCounter++;
+                    } else{
+                        wrongCounter++;
+                    }
+
+                    if(Math.round(inputDivision) == Math.round(randomNumber1 / randomNumber2)){
+                        correctCounter++;
+                    } else {
+                        wrongCounter++;
+                    }
+
+                    labelCorrect.setText("Number of Correct Answers: " +correctCounter);
+                    labelWrong.setText("Number of Wrong Answers: " +wrongCounter);
+                }
+                catch (Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
 
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(mainPane, 350, 350));
@@ -69,6 +116,6 @@ public class Main extends Application {
     }
 
     public int generateRandomNumber (){
-        return (int) Math.round(Math.random() * 100);
+        return (int) Math.round(Math.random() * 5) + 1;
     }
 }
