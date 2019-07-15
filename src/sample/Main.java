@@ -13,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Formatter;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -97,8 +99,12 @@ public class Main extends Application {
                     if(inputMultiplication == (randomNumber1.get() * randomNumber2.get())){
                         correctCounter++;
                     }
-                    Formatter div = new Formatter("0.00");
-                    if(div.format(String.valueOf(inputDivision)) == div.format(String.valueOf(randomNumber1.get() / randomNumber2.get()))){
+                    NumberFormat div = new DecimalFormat("#.##");
+                    System.out.println("input fields " +div.format(inputDivision));
+                    System.out.println("actual division " +(randomNumber1.get() / randomNumber2.get()));
+                    System.out.println("actual division " +div.format((double)randomNumber1.get() / (double)randomNumber2.get()));
+                    if(div.format(inputDivision).equals(div.format(((double)randomNumber1.get() / (double)randomNumber2.get())) )){
+                        System.out.println("This is in divisioin");
                         correctCounter++;
                     }
                     labelCorrect.setText("Number of Correct Answers: " +correctCounter);
@@ -122,6 +128,8 @@ public class Main extends Application {
                                 if(retryOption.toLowerCase().equals("y")){
                                     randomNumber1.set(this.generateRandomNumber());
                                     randomNumber2.set(this.generateRandomNumber());
+                                    heading.setText("Two randomly generated numbers are: " +
+                                            randomNumber1 + " and " +randomNumber2);
                                     textAddition.clear();
                                     textSubtraction.clear();
                                     textMultiplication.clear();
